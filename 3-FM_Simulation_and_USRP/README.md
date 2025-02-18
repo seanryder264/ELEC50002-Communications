@@ -1,0 +1,51 @@
+# Lab 3: FM Simulation and USRP
+
+## Exercise 1: FM Modulator
+
+| Message signal frequency | 1 kHz |
+| --- | --- |
+| Carrier signal frequency | 10 kHz |
+| Sample rate | 200k |
+| Samples | 1k |
+| k | [500,2000,5000] |
+| Message signal amplitude | 1 |
+| Carrier signal amplitude | 1 |
+
+
+k = 500 :
+
+![image](https://github.com/user-attachments/assets/17b2b5f4-02c4-42b2-b391-a4591b7c3b87)
+
+k = 2000 :
+
+![image](https://github.com/user-attachments/assets/1760d515-e254-4fa1-a4e7-a175c011d971)
+
+k = 5000 :
+
+![image](https://github.com/user-attachments/assets/d86b0017-3194-4f9c-8361-bca4c298bd07)
+
+Block Diagram of FM_Modulator.gvi:
+
+![image](https://github.com/user-attachments/assets/06752a0d-1838-4b12-a4f4-a3573770bcf0)
+
+## Exercise 2: FM Demodulator
+One way of demodulating the FM signal is by means of the so-called frequency discrimination, which 
+is obtained by: 
+1. Transferring the changes in instantaneous frequency into changes in the amplitude of the output 
+signal, by differentiating the FM signal. The output of the differentiator is an AM+FM modulated 
+signal.
+2. Demodulate the AM+FM signal by using an envelope detector (as in Exercise 1b of Lab 2).
+
+**Instructions:**
+1. Create a new VI and name it “FMDemodulator.gvi”.
+2. Apply the Derivative x(t) found in the function palette on the FM signal. Remember, as you did with 
+the integral function, to connect your value of dt to this block to scale appropriately.
+3. After the differentiation, the remaining process is very similar to envelope detection in AM 
+demodulation. Use exactly the same modules, and you will obtain the message signal. Remember 
+to scale the amplitude appropriately.
+4. Create a sub-VI and produce two outputs: demodulated signal in time, and demodulated signal 
+PSD.
+
+**Tasks:**
+1. Explain briefly the mathematical theory behind this demodulation technique. 
+2. Add the block diagram to your logbook
