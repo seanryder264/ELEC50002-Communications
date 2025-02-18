@@ -47,5 +47,18 @@ to scale the amplitude appropriately.
 PSD.
 
 **Tasks:**
-1. Explain briefly the mathematical theory behind this demodulation technique. 
-2. Add the block diagram to your logbook
+1. Explain briefly the mathematical theory behind this demodulation technique.
+   
+   **Frequency Modulation (FM) Signal:**
+   
+   $$s_{FM}(t)=A\cos(2\pi f_ct+\Delta f \sin (2\pi f_mt))$$
+   
+   **Differentiating the FM signal:**
+   
+   $$s'(t)=A(2\pi f_c+2\pi \Delta f f_m \cos(2\pi f_m t)) \sin(2\pi f_c t + \Delta f \sin(2\pi f_m t))$$
+   
+   **Envelope Detection (AM Demodulation):**
+   
+   $$y(t)\propto |s'(t)|$$
+   
+3. Add the block diagram to your logbook
