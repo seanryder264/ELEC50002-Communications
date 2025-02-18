@@ -88,7 +88,15 @@ observe the entire process of FM modulation and demodulation
 
 Tasks:
 1. Add the block diagram to your logbook.
+
+![image](https://github.com/user-attachments/assets/460cf66b-36da-49dc-84e8-01a80e44399b)
+
 2. Set the parameters as in the above table. Observe the demodulated signal and attach the plots of 
 the FM signal and the demodulated signal with their corresponding PSDs to your logbook (for the 
 demodulated signal, you should also provide a zoomed version, without the initial transient, so that it is 
 easy to observe the amplitude of the message).
+
+![image](https://github.com/user-attachments/assets/505141e7-ebe9-435e-8cd2-5f34a093e1c4)
+
+
+
