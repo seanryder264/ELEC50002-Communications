@@ -5,6 +5,7 @@
 ### Exercise 1a: Coherent Detection
 
 Block Diagram:  
+
 ![image](https://github.com/user-attachments/assets/a8ee0c3f-0564-4f30-954e-a1123da78a50)
 
 $$s(t)=\[A_C+A_Mcos(2f_Mt)\]cos(2f_Ct)A_Ccos(2f_Ct)$$
@@ -45,6 +46,7 @@ Phase and frequency must be matched for local carrier signal and incoming AM sig
 ### Exercise 1b: Envelope Detection
 
 Block Diagram:  
+
 ![image](https://github.com/user-attachments/assets/a90e3f16-af07-45fa-8916-664b1606e123)
 
 Rectify, low pass, remove dc offset
@@ -59,7 +61,9 @@ For an envelope detector to work properly, we require that
 - $1+m(t)$ does not go negative
 - $\omega_c$ is much larger that the highest frequency present in $m(t)$
 
-[The Envelope Detector](https://www.winlab.rutgers.edu/~crose/322_html/envelope_detector.html)![image](https://github.com/user-attachments/assets/e47af9fa-1673-48ae-97ed-f7ebe8cac000)
+[The Envelope Detector](https://www.winlab.rutgers.edu/~crose/322_html/envelope_detector.html)
+
+![image](https://github.com/user-attachments/assets/e47af9fa-1673-48ae-97ed-f7ebe8cac000)
   
 Diode Rectification:  
 The diode passes only the possitive portions of $s(t)$. Mathematically, you can think of it as approximately
@@ -91,14 +95,22 @@ $$\tilde{m}(t)=A_cm(t)$$
 
 ![image](https://github.com/user-attachments/assets/c642cdf1-ce69-4661-8d3d-16f1baaaf71f)
 
-Message signal amplitude: 1![image](https://github.com/user-attachments/assets/c74f8d4c-6c1b-4911-a580-bd0145f2c68f)
+Message signal amplitude: 1
+
+![image](https://github.com/user-attachments/assets/c74f8d4c-6c1b-4911-a580-bd0145f2c68f)
 
 
-Message signal amplitude: 2![image](https://github.com/user-attachments/assets/01a849e9-3515-4bbc-a78b-190d7bf98d0e)
+Message signal amplitude: 2
+
+![image](https://github.com/user-attachments/assets/01a849e9-3515-4bbc-a78b-190d7bf98d0e)
+
+Message signal amplitude: 3
+
+![image](https://github.com/user-attachments/assets/89279d59-b61c-49c0-81d2-1612bd4c7f79)
  
-Message signal amplitude: 3![image](https://github.com/user-attachments/assets/89279d59-b61c-49c0-81d2-1612bd4c7f79)
- 
-Message signal amplitude: 4![image](https://github.com/user-attachments/assets/7583433c-d68f-4beb-96d4-1602e06a341a)
+Message signal amplitude: 4
+
+![image](https://github.com/user-attachments/assets/7583433c-d68f-4beb-96d4-1602e06a341a)
 
 
 **Envelope detection relies on the carrier never going to zero** (the modulation index staying below 1). Coherent detection, on the other hand, can still demodulate correctly even if the carrier amplitude is partially or fully “overridden” by the modulating signal.  
@@ -120,7 +132,9 @@ There is a clear difference once the **message amplitude** (and thus the **modul
 
 ## Exercise 3: AM Communication by USRP	
 
-Transmitter:!![image](https://github.com/user-attachments/assets/644acbd7-5259-4712-b9bd-cd2540ef0e7e)
+Transmitter:
+
+!![image](https://github.com/user-attachments/assets/644acbd7-5259-4712-b9bd-cd2540ef0e7e)
 
 
 A convenient way to think about the **NI USRP‑2900** (and most NI‑USRP devices) is as a **generic, wideband “RF front end”** that you drive (or read) with **baseband I/Q signals** from LabVIEW. Internally, it has A/D and D/A converters plus an FPGA that handle the necessary **digital upconversion** (on transmit) and **digital downconversion** (on receive) so that you can operate at a user‐specified carrier frequency and sample rate. At a high level, here is how the transmit/receive paths work:
@@ -138,7 +152,9 @@ Transmitter Path:
 
 In other words, although you are creating an “AM” (or any other) waveform in software, it’s actually just **I/Q baseband data** to the hardware. The USRP’s FPGA \+ RF chain handle all the analog mixing and upconversion to get that waveform out over the air.
 
-Receiver:![image](https://github.com/user-attachments/assets/5573cbb7-0f86-4f0f-b946-d511f45c4599)
+Receiver:
+
+![image](https://github.com/user-attachments/assets/5573cbb7-0f86-4f0f-b946-d511f45c4599)
 
 **Reciever Path**
 1. RF Front End (Downconversion)
@@ -165,11 +181,16 @@ On the **receive** side, the NI 2900:
 Hence, from LabVIEW’s point of view, you only need to provide (on transmit) or process (on receive) **baseband** data. The NI 2900’s FPGA and front‐end circuitry take care of mixing, filtering, gain, etc. at the RF level, so effectively “the USRP does all the modulation and demodulation on its own” and the VIs just pass complex data to or from the device.
 
 Transmitted 5kHz Signal:  
+
 ![image](https://github.com/user-attachments/assets/6f905b88-c473-4439-8edc-836e4188e6ff)
+
  
 Demodulated 5kHz Signal:  
+
 ![image](https://github.com/user-attachments/assets/b2ad758a-7af3-406f-b97b-1074983e2bf8)
 
 
-Noise 20dB Signal:![image](https://github.com/user-attachments/assets/7d9078ef-fbde-4c48-98eb-6faedd359594)
+Noise 20dB Signal:
+
+![image](https://github.com/user-attachments/assets/7d9078ef-fbde-4c48-98eb-6faedd359594)
 
