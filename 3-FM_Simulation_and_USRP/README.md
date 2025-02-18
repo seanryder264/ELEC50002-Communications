@@ -61,4 +61,34 @@ PSD.
    
    $$y(t)\propto |s'(t)|$$
    
-3. Add the block diagram to your logbook
+2. Add the block diagram to your logbook
+
+![image](https://github.com/user-attachments/assets/4f984c4d-b8aa-49db-9c3d-72f8f73dcdc7)
+
+## Exercise 3: FM Simulation
+In this part all the sub-VI’s that you have prepared will be used in a single VI, and you will be able to
+observe the entire process of FM modulation and demodulation
+
+**Instructions:**
+1. Create a new file and name it “FMTopLevel.gvi”.
+2. Add all the necessary VIs, and make the necessary connections.
+3. Include all the setup in a while loop, and add a stop button.
+4. Use the following values:
+
+|     |     |
+| --- | --- |
+| Message signal | frequency 1kHz |
+| Carrier signal | frequency 10kHz |
+| Sample frequency | 200kHz |
+| Samples | 1k |
+| Butterworth low-pass filters | Order:  5 Cut-off \\ frequency: 1400Hz |
+| Message signal amplitude | 2 |
+| Carrier signal amplitude | 2 |
+| $k_f$ | 1000 |
+
+Tasks:
+1. Add the block diagram to your logbook.
+2. Set the parameters as in the above table. Observe the demodulated signal and attach the plots of 
+the FM signal and the demodulated signal with their corresponding PSDs to your logbook (for the 
+demodulated signal, you should also provide a zoomed version, without the initial transient, so that it is 
+easy to observe the amplitude of the message).
