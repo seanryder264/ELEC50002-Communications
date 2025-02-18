@@ -116,7 +116,7 @@ rule of thumb for approximating the bandwidth:
 
 $$B_{FM}=2(\Delta_f+B)$$
 
-where $B_{FM}$ is the bandwidth of the FM signal, $\Delta_f$ is the frequency deviation of the signal, and � is the 
+where $B_{FM}$ is the bandwidth of the FM signal, $\Delta_f$ is the frequency deviation of the signal, and $B$ is the 
 message bandwidth
 
 **Instructions:**
