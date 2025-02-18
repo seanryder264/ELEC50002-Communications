@@ -110,6 +110,8 @@ simultaneously; and thus there is no difference between the two approaches.
 previous exercises. Run the VI, adjusting the parameters to reasonable values, and make sure you are 
 able to transmit and receive successfully.
 
+![image](https://github.com/user-attachments/assets/cdbccd62-9430-4a9b-b80a-23927127b3df)
+
 ### Exercise 4a: Carson’s rule
 The bandwidth of an FM signal is difficult to calculate analytically. In the 1920s J.R. Carson provided a 
 rule of thumb for approximating the bandwidth:
@@ -132,5 +134,21 @@ kHz, and 30 kHz
 horizontal axis so that each spectrum is visible clearly. Annotate your spectra to show the FM signal 
 bandwidth (Carson’s rule)
 
+**$\Delta_f = 1kHz$:**
+
+![image](https://github.com/user-attachments/assets/58c3db9f-cfcb-4193-a530-0d31f07672b6)
+
+$B_{FM} = 10$
 
 
+**$\Delta_f = 5kHz$:**
+
+![image](https://github.com/user-attachments/assets/8497d6b8-70c7-4e5e-807b-b9b045e2018a)
+
+$B_{FM} = 14k$
+
+**$\Delta_f = 30kHz$:**
+
+![image](https://github.com/user-attachments/assets/972b5119-a54f-434b-b7e7-2bae123a302e)
+
+$B_{FM} = 70k$
