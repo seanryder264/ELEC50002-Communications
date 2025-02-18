@@ -124,12 +124,6 @@ Message signal amplitude: 4
   
 There is a clear difference once the **message amplitude** (and thus the **modulation index**) becomes large. The envelope detector starts to fail (or at least distort) under “over‐modulation,” whereas the coherent detector still tracks the message correctly.
 
-## 
-
-## 
-
-## 
-
 ## Exercise 3: AM Communication by USRP	
 
 Transmitter:
