@@ -77,11 +77,11 @@ observe the entire process of FM modulation and demodulation
 
 |     |     |
 | --- | --- |
-| Message signal | frequency 1kHz |
-| Carrier signal | frequency 10kHz |
+| Message signal frequency | 1kHz |
+| Carrier signal frequency | 10kHz |
 | Sample frequency | 200kHz |
 | Samples | 1k |
-| Butterworth low-pass filters | Order:  5 Cut-off \\ frequency: 1400Hz |
+| Butterworth low-pass filters | Order:  5 Cut-off : frequency: 1400Hz |
 | Message signal amplitude | 2 |
 | Carrier signal amplitude | 2 |
 | $k_f$ | 1000 |
