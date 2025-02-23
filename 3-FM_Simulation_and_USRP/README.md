@@ -2,15 +2,56 @@
 
 ## Exercise 1: FM Modulator
 
-| Message signal frequency | 1 kHz |
-| --- | --- |
-| Carrier signal frequency | 10 kHz |
-| Sample rate | 200k |
-| Samples | 1k |
-| k | [500,2000,5000] |
-| Message signal amplitude | 1 |
-| Carrier signal amplitude | 1 |
+In FM modulation, information about the message signal is contained in the frequency of the modulated carrier waveform. The generalized function for an FM signal is:
 
+$$ s(t) = A_c \cos(2\pi f_c t + \theta_m(t)) $$
+
+where
+
+$$ \theta_m(t) = 2\pi k_f \int_0^t m(\tau) d\tau, $$
+
+- $m(t)$ is the message signal.
+- $k_f$ represents the **frequency sensitivity**.
+
+The instantaneous frequency is:
+
+$$ f_i = f_c + k_f m(t) $$
+
+In particular, we will use the following equivalent form for the FM signal:
+
+$$ s(t) = A_c \cos(2\pi f_c t) \cos(\theta_m(t)) - A_c \sin(2\pi f_c t) \sin(\theta_m(t)) $$
+
+In the following figure, you can see an example of a message signal on the left and an FM modulated waveform on the right. Note the change in the frequency of the modulated signal in time.
+
+![image](https://github.com/user-attachments/assets/5b67afa1-258e-4a7c-bd82-7afb35039c61)
+
+The **frequency deviation** is defined as:
+
+$$ \Delta_f = k_f m_f, $$
+
+where $m_f = \max|m(t)|$.
+
+The **modulation index** (deviation ratio) is defined as:
+
+$$ \mu = \frac{\Delta_f}{B}, $$
+
+where \( B \) is the **message bandwidth**.
+
+# Tasks
+
+-  Set the parameters as in the following table and observe the changes in the modulated signal.
+
+| Parameter                 | Value               |
+|---------------------------|---------------------|
+| **Message signal frequency** | 1 kHz               |
+| **Carrier signal frequency** | 10 kHz              |
+| **Sample rate**            | 200k               |
+| **Samples**               | 1k                 |
+| **k_f**                   | [500, 2000, 5000]  |
+| **Message signal amplitude** | 1                 |
+| **Carrier signal amplitude** | 1                 |
+
+-  Explain the resulting changes in the FM signal and its **PSD** as you change **Δf**. Add the graphs of the FM signal and its **PSD** to your logbook for different **Δf**.
 
 k = 500 :
 
