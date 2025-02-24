@@ -206,3 +206,41 @@ $B_{FM} = 14k$
 ![image](https://github.com/user-attachments/assets/972b5119-a54f-434b-b7e7-2bae123a302e)
 
 $B_{FM} = 70k$
+
+# Exercise 5: Listening to FM Radio Using USRP (Bonus)
+
+In this step, you are expected to detect and listen to local radio stations through your USRP.
+
+## Detecting Stations
+
+1. Open **Find Radio Station.gvi** file provided. This basic code reveals the power densities of frequencies around the carrier frequency that is entered.
+2. Set the carrier frequency to **90 MHz** and the IQ rate to **20 MHz**. Examine the frequency plot obtained. The center of the graph (0) represents the chosen carrier frequency (**90 MHz**), and the bandwidth is proportional to the chosen IQ Rate (**±10 MHz** in this case).
+
+## Task
+
+- Capture the data of the plot to explore it. Zoom in and try to find peaks on the graph. Each peak represents an **FM signal** detected by the USRP antenna.
+- Change the parameters in Step 2 if necessary and copy the obtained graph together with the chosen values to your logbook.
+- Determine which FM station has the strongest signal.
+
+![image](https://github.com/user-attachments/assets/e15b00a1-2b3b-4d2b-8d9e-6e87e1f8a34f)
+
+**Hint:** If you are unable to see peaks in the plotted data, try to **increase the gain** to **10, 25, and 30**. The signal for FM radio stations can be weak inside the laboratory.
+
+**Hint:** If you get the *'overflow errors'* message when running the VI, try to **decrease the number of samples**.
+
+## Instructions
+
+1. From the analysis of the spectrum, choose an **FM frequency** that has a strong signal. If the previous step fails, try **98.8 MHz – BBC 1**.
+2. Open **FM Music.gvi**. Look at the code and observe that a module is added to play the demodulated waveform.
+3. Input the **chosen carrier frequency** and a **coherent bandwidth (IQ Rate)** to tune into an FM radio station.
+
+## Task
+
+- **Plug in an earphone** into the computer, turn the volume up, and (hopefully!) enjoy the music!
+
+**Hint:** When an earphone is plugged into the computer, LabView might have trouble detecting the correct **soundcard settings** to play audio.
+
+**Before running the VI:**
+- Plug in the earphones.
+- Try to play any audio file first (e.g., a YouTube video), preferably **before opening LabView**.
+- This will ensure that the **correct soundcard setting** is selected.
