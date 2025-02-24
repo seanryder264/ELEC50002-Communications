@@ -240,3 +240,6 @@ In this step, you are expected to detect and listen to local radio stations thro
 
 **Hint:** When an earphone is plugged into the computer, LabView might have trouble detecting the correct **soundcard settings** to play audio.
 ![image](https://github.com/user-attachments/assets/925df02e-f435-421b-b581-1fbedf44702a)
+
+![image](https://github.com/user-attachments/assets/8237a96c-b81f-4cdc-8208-839d10f19da1)
+
