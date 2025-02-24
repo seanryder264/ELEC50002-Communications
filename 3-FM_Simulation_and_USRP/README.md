@@ -239,6 +239,8 @@ In this step, you are expected to detect and listen to local radio stations thro
 - **Plug in an earphone** into the computer, turn the volume up, and (hopefully!) enjoy the music!
 
 **Hint:** When an earphone is plugged into the computer, LabView might have trouble detecting the correct **soundcard settings** to play audio.
+![image](https://github.com/user-attachments/assets/925df02e-f435-421b-b581-1fbedf44702a)
+
 
 **Before running the VI:**
 - Plug in the earphones.
