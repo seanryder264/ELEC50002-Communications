@@ -37,7 +37,7 @@ $$ \mu = \frac{\Delta_f}{B}, $$
 
 where \( B \) is the **message bandwidth**.
 
-# Tasks
+## Tasks
 
 -  Set the parameters as in the following table and observe the changes in the modulated signal.
 
@@ -64,6 +64,19 @@ k = 2000 :
 k = 5000 :
 
 ![image](https://github.com/user-attachments/assets/d86b0017-3194-4f9c-8361-bca4c298bd07)
+
+- **Time-Domain Plots**
+  the frequency in the carrier swings more widely.   
+  As $k_f$ increases shows a higher rate of *"zero-crossing compression/expansion,"* but the amplitude stays constant.
+
+- **PSD Plots**  
+  As $k_f$ increases, the spectrum broadens around the carrier.  
+  - For $k_f = 500$, the **PSD** is relatively narrow.  
+  - For $k_f = 5000$, a much wider spread and more side lobes.
+
+These observations confirm that **increasing $k_f$ (thus $\Delta f$)** directly **increases** the FM signal’s instantaneous-frequency swing **and widens its spectrum** in the frequency domain.
+
+- Include the **block diagram** of your `FM_Modulator.gvi` in your logbook.
 
 Block Diagram of FM_Modulator.gvi:
 
