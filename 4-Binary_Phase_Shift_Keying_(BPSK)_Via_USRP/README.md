@@ -121,7 +121,7 @@ Following these steps, construct a BPSK transmitter using the guidelines below:
 
 - From the spectrum plot, measure the “main lobe” bandwidth of the transmitted signal. Then change the pulse shaping filter control to “none” to create rectangular pulses, run the transmitter again, and compare the spectrum with that for root-raised-cosine pulses. Finally, revert the pulse shaping filter setting to “Root Raised.”
 
-  ![image](https://github.com/user-attachments/assets/91982a35-b6de-4d7a-9dcd-89604cdd4794)
+![image](https://github.com/user-attachments/assets/91982a35-b6de-4d7a-9dcd-89604cdd4794)
 
 - Compare the main lobe bandwidth and the spectral roll-off for root-raised-cosine pulses versus rectangular pulses.
 
