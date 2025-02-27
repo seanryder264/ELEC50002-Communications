@@ -136,6 +136,19 @@ A smooth waveform and a well-contained spectrum indicate effective RRC filtering
 
 - Compare the main lobe bandwidth and the spectral roll-off for root-raised-cosine pulses versus rectangular pulses.
 
+In the frequency domain, **root-raised-cosine (RRC) pulses** and **rectangular pulses** differ in two key ways:
+
+1. **Main Lobe Bandwidth** – RRC pulses concentrate energy in a slightly narrower central lobe,  
+   while rectangular pulses spread energy more broadly, resulting in a wider main lobe.
+
+2. **Spectral Roll-Off** – RRC pulses decay more steeply in frequency, reducing side lobes and  
+   minimizing interference. Rectangular pulses, following a $\frac{\sin x}{x}$ pattern, decay more  
+   slowly, producing taller and more extended side lobes.
+
+In short, **RRC filtering** keeps the signal more contained within its bandwidth and suppresses side lobes,  
+whereas **rectangular pulses** lead to a broader spectrum with stronger side lobes.
+
+
 ---
 
 ## Exercise 2: BPSK Receiver
