@@ -128,6 +128,12 @@ $$
 
 ![image](https://github.com/user-attachments/assets/91982a35-b6de-4d7a-9dcd-89604cdd4794)
 
+When switching between **RRC filtering** and **rectangular pulses**, the differences are immediately noticeable. With RRC filtering, the waveform appears smooth, with gradual transitions between symbols, while rectangular pulses create a blocky, staircase-like signal with abrupt jumps.
+
+This also impacts the frequency domain. RRC filtering concentrates most of the signal's energy near the center frequency, rolling off quickly to minimize interference. In contrast, rectangular pulses result in a wider spread of energy, producing strong ripples and inefficient bandwidth usage.
+
+A smooth waveform and a well-contained spectrum indicate effective RRC filtering, whereas sharp steps and a broader, more rippled spectrum suggest the effects of unfiltered pulses. While RRC improves signal clarity and bandwidth efficiency, rectangular pulses offer a simpler but less controlled transmission.
+
 - Compare the main lobe bandwidth and the spectral roll-off for root-raised-cosine pulses versus rectangular pulses.
 
 ---
