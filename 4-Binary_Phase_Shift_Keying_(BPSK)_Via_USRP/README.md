@@ -112,6 +112,11 @@ Following these steps, construct a BPSK transmitter using the guidelines below:
 **Tasks:**
 
 - Calculate the number of samples per symbol, $L$, based on the given values.
+
+$$
+L = \frac{\text{IQ rate}}{\text{Symbol rate}} = \frac{200,000 \text{ samples/s}}{10,000 \text{ symbols/s}} = 20.
+$$
+  
 - Add the block diagram and the front panel graphs to your logbook (adjust plots where necessary) and explain your observations.
 
 ![image](https://github.com/user-attachments/assets/24741926-3604-4206-bb9f-aa3bc4e7b965)
