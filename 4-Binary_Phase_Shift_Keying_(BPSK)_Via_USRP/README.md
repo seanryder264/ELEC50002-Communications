@@ -113,6 +113,12 @@ Following these steps, construct a BPSK transmitter using the guidelines below:
 
 - Calculate the number of samples per symbol, $L$, based on the given values.
 - Add the block diagram and the front panel graphs to your logbook (adjust plots where necessary) and explain your observations.
+
+![image](https://github.com/user-attachments/assets/24741926-3604-4206-bb9f-aa3bc4e7b965)
+
+![image](https://github.com/user-attachments/assets/fdf30a46-6c62-46c3-b0ee-83df745237e6)
+
+
 - From the spectrum plot, measure the “main lobe” bandwidth of the transmitted signal. Then change the pulse shaping filter control to “none” to create rectangular pulses, run the transmitter again, and compare the spectrum with that for root-raised-cosine pulses. Finally, revert the pulse shaping filter setting to “Root Raised.”
 - Compare the main lobe bandwidth and the spectral roll-off for root-raised-cosine pulses versus rectangular pulses.
 
