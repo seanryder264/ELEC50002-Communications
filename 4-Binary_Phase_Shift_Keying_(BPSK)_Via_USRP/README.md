@@ -118,18 +118,17 @@ L = \frac{\text{IQ rate}}{\text{Symbol rate}} = \frac{200,000 \text{ samples/s}}
 $$
   
 - Add the block diagram and the front panel graphs to your logbook (adjust plots where necessary) and explain your observations.
-://github.com/user-attachments/assets/24741926-3604-4206-bb9f-aa3bc4e7b965)
+
+ ![image](https://github.com/user-attachments/assets/6b0e76e8-afba-4279-8dfe-568532246e6b)
+
 
 ![image](https://github.com/user-attachments/assets/47da2774-05ec-42f4-a871-50616db1e3c9)
 
 
-![image](https://github.com/user-attachments/assets/1f54c948-81c5-493a-bfb9-df19184deb6b)
-
-
-
 - From the spectrum plot, measure the “main lobe” bandwidth of the transmitted signal. Then change the pulse shaping filter control to “none” to create rectangular pulses, run the transmitter again, and compare the spectrum with that for root-raised-cosine pulses. Finally, revert the pulse shaping filter setting to “Root Raised.”
 
-![image](https://github.com/user-attachments/assets/91982a35-b6de-4d7a-9dcd-89604cdd4794)
+
+![image](https://github.com/user-attachments/assets/1f54c948-81c5-493a-bfb9-df19184deb6b)
 
 When switching between **RRC filtering** and **rectangular pulses**, the differences are immediately noticeable. With RRC filtering, the waveform appears smooth, with gradual transitions between symbols, while rectangular pulses create a blocky, staircase-like signal with abrupt jumps.
 
