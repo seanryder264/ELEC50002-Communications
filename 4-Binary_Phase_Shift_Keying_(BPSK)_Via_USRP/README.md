@@ -244,10 +244,11 @@ The sampling rate $1/T_s$ is set by the receiver’s IQ rate, which provides $M$
 
 - Run the transmitter and receiver several times. Record the observed BER values.
 
-![image](https://github.com/user-attachments/assets/42b1ea22-81b7-4d4b-9601-086cf6955eaa)
+![image](https://github.com/user-attachments/assets/a4dc7d38-64c0-4b56-8b5d-6e48cff2cda3)
 
 - Set the Rx and Tx gains as indicated in the table below, run each setting 5 times, and record both the individual and average BER for each configuration.
-0.0163934, 0.0163934, 0.0163934, 0.0163934, 0.0163934
+0, 0.5, 0, 0, 0
+0.494092,
 
 
 | Tx Gain (dB) | Rx Gain (dB) |
