@@ -365,6 +365,8 @@ An error in any one of the three samples is corrected by the majority vote. To i
    Connect the output of your FEC decoder to the **MT Calculate BER** function (or your own BER calculator).
 
 **Tasks:**
+![image](https://github.com/user-attachments/assets/9dc07ba5-355a-4aea-b3d1-0906fe826adf)
+![image](https://github.com/user-attachments/assets/5902829a-71c3-487e-9495-ee19bd813404)
 
 - Using the same system configuration as the BPSK system without FEC, set the Rx and Tx gains to the following settings, and run each setting 5 times to obtain an average BER:
 
@@ -374,6 +376,14 @@ An error in any one of the three samples is corrected by the majority vote. To i
   | -35          | -15          |
   | -37          | -15          |
   | -40          | -15          |
+
+  | Data                                         | Average BER  |
+|----------------------------------------------|-----------|
+| 0, 0, 0, 0, 0 | 0 |
+| 0.148751, 0.489818, 0.495288, 0.141333, 0.475138 | 0.3500656 |
+| 0.490566, 0.488688, 0.490482, 0.489362, 0.497343 | 0.4912882 |
+| 0.497446, 0.493435, 0.473259, 0.482185, 0.494541 | 0.4881732 |
+
 
 - Compare your BER results from Exercise 2 with those obtained here. Has FEC improved the BER?
 - Discuss the trade-offs involved in the error correction coding system. What are the advantages and disadvantages?
