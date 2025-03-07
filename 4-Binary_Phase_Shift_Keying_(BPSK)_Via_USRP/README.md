@@ -311,6 +311,21 @@ The sequences are as follows:
 ![image](https://github.com/user-attachments/assets/32e02b4c-8f51-4344-ae5c-6fac29d20d16)
 
 - Run the code several times using the same initial configuration as the BPSK system, and explain your observations on the BER performance.
+
+| Tx Gain (dB) | Rx Gain (dB) |
+|--------------|--------------|
+| 0            | 0            |
+| -35          | -15          |
+| -37          | -15          |
+| -40          | -15          |
+
+| Data                                         | Average BER  |
+|----------------------------------------------|-----------|
+| 0, 0, 0, 0, 0                             | 0       |
+| 0.456954, 0.489496, 0.484328, 0.47548, 0.483131 | 0.4779  |
+| 0.454142, 0.476731, 0.465487, 0.493868, 0.488525 | 0.4753 |
+| 0.490375, 0.475501, 0.50431, 0.473515, 0.498864  | 0.4889 |
+  
 - Compare the performance of BPSK and DPSK, and explain your findings.
 
 ---
