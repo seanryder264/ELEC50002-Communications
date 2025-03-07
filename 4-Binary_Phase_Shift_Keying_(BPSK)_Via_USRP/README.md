@@ -307,6 +307,9 @@ The sequences are as follows:
 **Tasks:**
 
 - Add the block diagram of your DPSK system to your logbook.
+![image](https://github.com/user-attachments/assets/dfd49a78-1f2a-4eed-91f1-fbd38e6436b1)
+![image](https://github.com/user-attachments/assets/32e02b4c-8f51-4344-ae5c-6fac29d20d16)
+
 - Run the code several times using the same initial configuration as the BPSK system, and explain your observations on the BER performance.
 - Compare the performance of BPSK and DPSK, and explain your findings.
 
