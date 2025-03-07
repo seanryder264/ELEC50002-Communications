@@ -377,7 +377,7 @@ An error in any one of the three samples is corrected by the majority vote. To i
   | -37          | -15          |
   | -40          | -15          |
 
-  | Data                                         | Average BER  |
+| Data                                         | Average BER |
 |----------------------------------------------|-----------|
 | 0, 0, 0, 0, 0 | 0 |
 | 0.148751, 0.489818, 0.495288, 0.141333, 0.475138 | 0.3500656 |
