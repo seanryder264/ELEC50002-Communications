@@ -2,7 +2,18 @@
 
 ## Exercise 1: FM Modulator
 
-In FM modulation, information about the message signal is contained in the frequency of the modulated carrier waveform. The generalized function for an FM signal is:
+For each exercise of each lab, use the following framework to write them up in a clear and concise way:
+
+- Situatuion: What is the background, what skill or goal is this exercise trying to address?
+- Task: What has been suggested that you need to do in this exercise in order to achieve this goal/develop this skill?
+- Action: What did you actually do to complete this exercise?
+- Result: What did your actions create? What would you change or do differently perhaps?
+
+### Definition and Mathematical Representaion
+
+>Frequency Modulation is a process of encoding information on one carrier wave by changing its frequency. The frequency of the carrier wave is changed according to the frequency of the modulating signal. - geeksforgeeks.org
+
+The generalized function for an FM signal is:
 
 $$ s(t) = A_c \cos(2\pi f_c t + \theta_m(t)) $$
 
