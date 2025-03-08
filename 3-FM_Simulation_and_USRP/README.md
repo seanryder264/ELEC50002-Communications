@@ -2,26 +2,23 @@
 
 ## Exercise 1: FM Modulator
 
-For each exercise of each lab, use the following framework to write them up in a clear and concise way:
-
-- Situatuion: What is the background, what skill or goal is this exercise trying to address?
-- Task: What has been suggested that you need to do in this exercise in order to achieve this goal/develop this skill?
-- Action: What did you actually do to complete this exercise?
-- Result: What did your actions create? What would you change or do differently perhaps?
-
-### Definition and Mathematical Representaion
+In this exersice we are going to make a FM modulator.
 
 >Frequency Modulation is a process of encoding information on one carrier wave by changing its frequency. The frequency of the carrier wave is changed according to the frequency of the modulating signal. - geeksforgeeks.org
 
-The generalized function for an FM signal is:
+From the Lab Documents. 
 
+---
+
+The generalized function for an FM signal is:
+ 
 $$ s(t) = A_c \cos(2\pi f_c t + \theta_m(t)) $$
 
 where
 
 $$ \theta_m(t) = 2\pi k_f \int_0^t m(\tau) d\tau, $$
 
-- $m(t)$ is the message signal.
+ - $m(t)$ is the message signal.
 - $k_f$ represents the **frequency sensitivity**.
 
 The instantaneous frequency is:
@@ -48,9 +45,11 @@ $$ \mu = \frac{\Delta_f}{B}, $$
 
 where \( B \) is the **message bandwidth**.
 
-## Tasks
+---
 
--  Set the parameters as in the following table and observe the changes in the modulated signal.
+Block Diagram of FM_Modulator.gvi:
+
+![image](https://github.com/user-attachments/assets/06752a0d-1838-4b12-a4f4-a3573770bcf0)
 
 | Parameter                 | Value               |
 |---------------------------|---------------------|
@@ -62,7 +61,9 @@ where \( B \) is the **message bandwidth**.
 | **Message signal amplitude** | 1                 |
 | **Carrier signal amplitude** | 1                 |
 
--  Explain the resulting changes in the FM signal and its **PSD** as you change **Δf**. Add the graphs of the FM signal and its **PSD** to your logbook for different **Δf**.
+The above are the values we used.
+
+Changing the values of k we observed the following
 
 k = 500 :
 
@@ -77,8 +78,8 @@ k = 5000 :
 ![image](https://github.com/user-attachments/assets/d86b0017-3194-4f9c-8361-bca4c298bd07)
 
 - **Time-Domain Plots**
-  the frequency in the carrier swings more widely.   
-  As $k_f$ increases shows a higher rate of *"zero-crossing compression/expansion,"* but the amplitude stays constant.
+  he carrier wave is shifting between higher and lower frequencies more dramatically as $k_f$ increases  
+  As $k_f$ increases, the rate at which the signal crosses zero fluctuates more rapidly—sometimes packed closely together, sometimes stretched out - but the amplitude stays constant.
 
 - **PSD Plots**  
   As $k_f$ increases, the spectrum broadens around the carrier.  
@@ -87,58 +88,64 @@ k = 5000 :
 
 These observations confirm that **increasing $k_f$ (thus $\Delta f$)** directly **increases** the FM signal’s instantaneous-frequency swing **and widens its spectrum** in the frequency domain.
 
-- Include the **block diagram** of your `FM_Modulator.gvi` in your logbook.
-
-Block Diagram of FM_Modulator.gvi:
-
-![image](https://github.com/user-attachments/assets/06752a0d-1838-4b12-a4f4-a3573770bcf0)
-
 ## Exercise 2: FM Demodulator
-One way of demodulating the FM signal is by means of the so-called frequency discrimination, which 
+
+In this exercise we will create a _demodulator_. One method for demodulation is "_frequency descrimination_". The lab instructions explaining it as follows:
+>One way of demodulating the FM signal is by means of the so-called frequency discrimination, which 
 is obtained by: 
-1. Transferring the changes in instantaneous frequency into changes in the amplitude of the output 
+>1. Transferring the changes in instantaneous frequency into changes in the amplitude of the output 
 signal, by differentiating the FM signal. The output of the differentiator is an AM+FM modulated 
 signal.
-2. Demodulate the AM+FM signal by using an envelope detector (as in Exercise 1b of Lab 2).
+>2. Demodulate the AM+FM signal by using an envelope detector (as in Exercise 1b of Lab 2).
 
-**Instructions:**
-1. Create a new VI and name it “FMDemodulator.gvi”.
-2. Apply the Derivative x(t) found in the function palette on the FM signal. Remember, as you did with 
-the integral function, to connect your value of dt to this block to scale appropriately.
-3. After the differentiation, the remaining process is very similar to envelope detection in AM 
-demodulation. Use exactly the same modules, and you will obtain the message signal. Remember 
-to scale the amplitude appropriately.
-4. Create a sub-VI and produce two outputs: demodulated signal in time, and demodulated signal 
-PSD.
+We created the demodulator in “FMDemodulator.gvi”
 
-**Tasks:**
-1. Explain briefly the mathematical theory behind this demodulation technique.
+---
+
+We implement the demodulator using the _frequency descriminaton_ method mentioned prior, following the details given in the lab instructions:
+
+![image](https://github.com/user-attachments/assets/f2761099-14d5-453a-a796-737251dabf71)
+
+** Differentiation on the left
+
+Then we created a Sub-VI for it with
+
+Inputs:
+- FM Signal
+-  Order (for Butterworth filter)
+-   Cutoff Frequency (for Butterworth filter)
+  
+Outputs:
+- Demodulated Message Signal
+- Demodulated Message PSD
+
+### Mathematical Theory of Frequency Discrimination
    
    **Frequency Modulation (FM) Signal:**
    
-   $$s_{FM}(t)=A\cos(2\pi f_ct+\Delta f \sin (2\pi f_mt))$$
+   $$s_{FM}(t)=A\cos(\omega_c t+ k_f\int_0^t m(\tau)d\tau)$$
    
    **Differentiating the FM signal:**
    
-   $$s'(t)=A(2\pi f_c+2\pi \Delta f f_m \cos(2\pi f_m t)) \sin(2\pi f_c t + \Delta f \sin(2\pi f_m t))$$
+   $$s'(t)=-A(\omega_c + 2 \pi k_f m(t)) \sin(\omega_c t + 2 \pi k_f \int_0^t m(\tau)d\tau)$$
    
    **Envelope Detection (AM Demodulation):**
    
    $$y(t)\propto |s'(t)|$$
-   
-2. Add the block diagram to your logbook
 
-![image](https://github.com/user-attachments/assets/4f984c4d-b8aa-49db-9c3d-72f8f73dcdc7)
+   (similar to the AM signal: $A_c(1 + m(t)) \cos( \omega_c t )$ )
+
+![image](https://github.com/user-attachments/assets/34472b36-2421-4262-bee0-fce93a225ed1)
+> https://wiki.analog.com/_detail/university/courses/electronics/fmd_f5_3.png?id=university%3Acourses%3Aelectronics%3Aelectronics_lab_fm_detectors
+
 
 ## Exercise 3: FM Simulation
-In this part all the sub-VI’s that you have prepared will be used in a single VI, and you will be able to
-observe the entire process of FM modulation and demodulation
 
-**Instructions:**
-1. Create a new file and name it “FMTopLevel.gvi”.
-2. Add all the necessary VIs, and make the necessary connections.
-3. Include all the setup in a while loop, and add a stop button.
-4. Use the following values:
+In this exercise we will put together the modules we made in exercise 1 and 2 to observer the whole process of frequency modulation and demodulation
+
+We connected the inputs, VI's and ouputs, then encompased the whole thing in a while loop so we could update the inputs and get outputs without having to stop and run each time. Ultimately saving the module in "FMTopLevel.gvi".
+
+![image](https://github.com/user-attachments/assets/f52467e5-93e2-48ea-8322-e14edd66a17c)
 
 |     |     |
 | --- | --- |
@@ -151,39 +158,43 @@ observe the entire process of FM modulation and demodulation
 | Carrier signal amplitude | 2 |
 | $k_f$ | 1000 |
 
-Tasks:
-1. Add the block diagram to your logbook.
-
-![image](https://github.com/user-attachments/assets/f52467e5-93e2-48ea-8322-e14edd66a17c)
-
-2. Set the parameters as in the above table. Observe the demodulated signal and attach the plots of 
-the FM signal and the demodulated signal with their corresponding PSDs to your logbook (for the 
-demodulated signal, you should also provide a zoomed version, without the initial transient, so that it is 
-easy to observe the amplitude of the message).
+Setting the input parameters to the ones in the table above. We observed the demodulated singal:
 
 ![image](https://github.com/user-attachments/assets/505141e7-ebe9-435e-8cd2-5f34a093e1c4)
 
+We had to remove the first 0.001 seconds due to transients. That which is likely caused by the initial jump in frequency from starting and the Butterworth low-pass filter taking time to settle. We observe that the peak frequency of the demodulated signal is 1k matching that of the message signal. The demodulated signal is flipped and about 20000x bigger than the input message signal. This can be explained by the demodulation technique:
+$$s'(t)=-A_c(\omega_c + 2 \pi k_f m(t)) \sin(\omega_c t + 2 \pi k_f \int_0^t m(\tau)d\tau)$$
+
+The amplitude of the demodulated signal will be 
+$$-A_c 2 \pi k_f A_m = - 2 \times 2 \pi \times 1000 \times 2 = - 25 120$$
+
+I'm not entierly sure why the FM and demodulated signal are double in amplitude
+
 ## Exercise 4: FM Communications via USRP
-In this exercise, FM communication via USRP will be implemented. Instead of building the code yourself,
+
+From the Lab Instructions:
+>In this exercise, FM communication via USRP will be implemented. Instead of building the code yourself,
 you are given a file “FM-TxRx.gvi”. The code in the file should look familiar, but with only a slight
 difference: you only have one VI this time. This is no big deal since you could have also combined the AM
 communication VIs into a single one. LabView has the ability to execute two (or more) while loops
 simultaneously; and thus there is no difference between the two approaches.
 
-**Instructions:**
-1. Have a detailed look at the code and compare it with the FM receiver/transmitter developed in the 
-previous exercises. Run the VI, adjusting the parameters to reasonable values, and make sure you are 
-able to transmit and receive successfully.
+The given VI is similar to the ones built prior, though now everything is in a single file. There are also various functions to interface with the USRP. The modulator is contained in the while loop at the top of the diagram, and the demodulator in the bottom while loop. As before, the modulator appears to be working with the general equation of an FM signal. The message signal $𝑚(𝑡)$ is used to calculate $𝜃_𝑚(𝑡)$, which then gets passed into a sinusoid. That data is then transmitted by the USRP. The USRP receives the signal and passes it to the demodulator in the lower while loop. This appears to be using frequency discrimination like out demodulator in Exercise 2. We can see the received signal is (1) differentiated, and then (2) passed into a circuit similar to our AM envelope detection demodulator from Lab 2 Exercise 1b. These are the two key steps involved in the frequency discrimination method
+for FM demodulation.
+
+We run the VI as instructed, adjusting the value of frequency deviation (= delta_f) to 30kHz, which was successful:
 
 ![image](https://github.com/user-attachments/assets/cdbccd62-9430-4a9b-b80a-23927127b3df)
 
 ### Exercise 4a: Carson’s rule
-The bandwidth of an FM signal is difficult to calculate analytically. In the 1920s J.R. Carson provided a 
+
+From Lab Instructions: 
+> The bandwidth of an FM signal is difficult to calculate analytically. In the 1920s J.R. Carson provided a 
 rule of thumb for approximating the bandwidth:
 
-$$B_{FM}=2(\Delta_f+B)$$
+>$$B_{FM}=2(\Delta_f+B)$$
 
-where $B_{FM}$ is the bandwidth of the FM signal, $\Delta_f$ is the frequency deviation of the signal, and $B$ is the 
+>where $B_{FM}$ is the bandwidth of the FM signal, $\Delta_f$ is the frequency deviation of the signal, and $B$ is the 
 message bandwidth
 
 **Instructions:**
