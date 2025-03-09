@@ -1,151 +1,97 @@
 # Lab 4: Binary Phase Shift Keying (BPSK) Via USRP
 
-In phase-shift keying (PSK) modulation, information is encoded on the phase of the transmitted carrier rather than on its amplitude (ASK) or frequency (FSK). In binary phase-shift keying (BPSK) there are two phase values, $0^\circ$ or $180^\circ$, which means that an unmodified carrier is transmitted to represent one binary data value while an inverted carrier is transmitted to represent the other. BPSK is optimum among binary modulation schemes in achieving the lowest average power for a given target bit error ratio (BER).
+From the Lab Instructions: 
+>In phase-shift keying (PSK) modulation, information is encoded on the phase of the transmitted carrier rather than on its amplitude (ASK) or frequency (FSK). In binary phase-shift keying (BPSK) there are two phase values, $0^\circ$ or $180^\circ$, which means that an unmodified carrier is transmitted to represent one binary data value while an inverted carrier is transmitted to represent the other. BPSK is optimum among binary modulation schemes in achieving the lowest average power for a given target bit error ratio (BER).
 
 ### Exercise 1: BPSK Transmitter
 
-The BPSK signal is given by: 
+In this exercise we make a Binary Phase Shift Keying (BPSK) Transmitter. Which encodes encodes binary information into $0^\circ$ or $180^\circ$, dependent on zero or one. In this scheme the bits are transmitted as pulses, and to limit interference between bits (or symbols) we choose the shape of the polse to have a rapid specral roll off (how quickly the power diminishes outside its main bandwidth). We will achieve this with a root-raised-cosine filter
 
-$$
+In the Lab Instructions this is explained mathematically:
+>The BPSK signal is given by: 
+
+>$$
 A\, g_{\text{TX}}(t) \cos\Bigl(2\pi f_c t + \theta(t)\Bigr).
 $$
 
-In this equation,  
-- $A$ is a constant corresponding to the transmitted power level,  
-- $g_{\text{TX}}(t)$ is a fixed pulse shape,  
-- $f_c$ is the carrier frequency, and  
-- $\theta(t)$ takes the value of either $0^\circ$ or $180^\circ$ to carry the desired information.
+>In this equation,  
+>- $A$ is a constant corresponding to the transmitted power level,  
+>- $g_{\text{TX}}(t)$ is a fixed pulse shape,  
+>- $f_c$ is the carrier frequency, and  
+>- $\theta(t)$ takes the value of either $0^\circ$ or $180^\circ$ to carry the desired information.
 
-Note that we can also write the equation as: 
+>Note that we can also write the equation as: 
 
-$$
+>$$
 \pm A\, g_{\text{TX}}(t) \cos(2\pi f_c t),
 $$
 
-where the plus sign corresponds to $\theta = 0^\circ$ and the minus sign to $\theta = 180^\circ$.
+>where the plus sign corresponds to $\theta = 0^\circ$ and the minus sign to $\theta = 180^\circ$.
 
-We will assume that a new pulse is transmitted every $T$ seconds so that the symbol rate (symbols per second) is $1/T$. For a binary scheme such as BPSK, the bit rate is the same as the symbol rate. Since the pulse $g_{\text{TX}}[n]$ does not carry information, its shape can be chosen to satisfy other criteria. In our case, we desire a pulse shape that provides a rapid spectral roll-off to minimize inter-symbol interference (e.g. a “root-raised-cosine” filter).
-
-### Steps to Form a BPSK Signal
-
-1. **Symbol Mapping:**  
-   The input data arrives as a stream of bits. The *MT Generate Bits VI* produces an array of bits. For BPSK the bits are mapped as follows:
-
-   | Bit Value | Phase ($\theta$) | Symbol |
+Implementing this we multiplied the output of *MT Generate Bits (PN Order - Fibonacci)* by 2 then subtracted 1 
+![image](https://github.com/user-attachments/assets/6d2aadb9-c2a6-44eb-8825-904e0ac2f114)
+to map the bits to symbols as such:
+ | Bit Value | Phase ($\theta$) | Symbol |
    |-----------|---------------------|--------|
    | 0         | $0^\circ$         | -1     |
    | 1         | $180^\circ$       | +1     |
 
-   **Remark:** The USRP requires a complex-valued input. Make sure to convert the symbols to complex numbers ($+1 + j0$) before sending them as input to the USRP.
-
-2. **Upsampling:**  
-   As a first step toward pulse shaping, interpolation is required. We place $L - 1$ zeros after each symbol. This produces a sample interval of 
-
-   $$T_s = \frac{T}{L}$$
-
-   or a sample rate of 
-
-   $$\frac{1}{T_s} = \frac{L}{T}$$
-
-3. **Pulse Shaping:**  
-   If the upsampled signal is applied to a filter whose impulse response $g_{\text{TX}}[n]$ is a root-raised-cosine pulse, then each symbol at the filter output will be represented by such a pulse. This pulse shape has a very rapid spectral roll-off so that consecutive transmitted symbols do not interfere with each other.
+We then added the frame header. Next we upsample the signal, so that the symbols are seperated by a number of zeros. Running it through a root raised cosine filter, makes each symbol have a pulse shape with a rapid spectal roll off (preventing interference). Then convolving it we get a waveform transmitting infomation without interference.
 
 ![image](https://github.com/user-attachments/assets/8e89d2b3-efca-4f27-a4bf-0f924d822e08)
 
+finaly we normailise so that the amplitude is 1 maximum. The USRP converts the signal from digital to analogue and multiplies by the carrier $\cos(2\pi f_c t)$
 
-4. **Modulation:**  
-   The signal, of the form (+1+j0), $g_{\text{TX}}[n] $, can be sent directly to the USRP. The USRP transmitter will perform the DAC and the multiplication by the carrier $\cos(2\pi f_c t)$.
+From the lab instructions: 
 
-Following these steps, construct a BPSK transmitter using the guidelines below:
+>#### Pilots and Channel Estimation
 
-1. **Generate Bits:**  
-   Add an *MT Generate Bits (PN Order - Fibonacci)* from the function palette to your template. This creates a pseudorandom sequence of bits. You can control the total number of bits. Note that by default, MT Generate Bits produces the same sequence every run (useful for debugging). To generate a different sequence on each run, connect a random number to the seed in input terminal.
+>- The **Insert Pilots** function inserts a specific sequence of symbols known to the receiver for estimating the channel transfer function.
+>- At the receiver, you will later use the **Channel Estimator** to correct for phase and amplitude errors introduced by the channel.
 
-2. **Symbol Mapping and Frame Header:**  
-   Convert the integers 0 and 1 from the MT Generate Bits to doubles -1 and +1, respectively. Then, add the **AddFrameHeader** function provided.
+Setting the values to the following:
 
-3. **Upsampling:**  
-   Upsample the array of symbols using the **Upsample** function from the palette. Set the symbol rate ($1/T$) to 10,000 symbols/s and the IQ rate ($1/T_s$) to 200,000 Samples/s. Use these values to calculate the upsampling factor $L$.
+- **Carrier frequency:** 400 MHz  
+- **IQ Rate:** 200 kHz (this sets the value of $1/T_s$)  
+- **Gain:** 0 dB  
+- **Active Antenna:** TX1  
+- **Symbol rate:** 10,000 symbols/s  
+- **Message Length:** 1000 bits  
 
-4. **Pulse-Shaping Filter Generation:**  
-   Use the **MT Generate Filter Coefficients** function to generate the pulse-shaping filter. Set the inputs as follows:  
-   - *Modulation Type:* PSK  
-   - *Pulse Shaping Samples per Symbol:* $L$  
-   - *Pulse Shaping Filter:* “Root Raised Cosine”
-
-5. **Filtering:**  
-   Connect the “pulse shaping filter coefficients” output to the “Y” input of a **Convolution** function. Also, connect the output of the **Upsample** function to the “X” input of the **Convolution** function.
-
-6. **Normalization:**  
-   Normalize the amplitude of your filtered message signal to a maximum absolute value of 1. The provided **Quick Scale 1D** function finds the maximum of the absolute value.
-
-7. **Waveform Observation:**  
-   To observe the baseband waveform, connect the normalized signal to the “Y” input of a **Build Waveform** function. Use the IQ rate to determine the appropriate value for the “dt” terminal, and add an indicator on the panel.
-
-8. **Conversion to Complex Values:**  
-   Convert the normalized signal to complex values using the **Real and Imaginary to Complex** function.
-
-9. **Power Spectrum:**  
-   To view the baseband power spectrum, connect the normalized signal to the “Y” terminal of the **Cluster Properties** and set the “dt” terminal using the same value from step 7. (The Cluster Properties function is pre-connected to an FFT Power Spectrum for 1 channel (CDB); simply place the “Baseband Power Spectrum” graph on your panel.)
-
-#### Pilots and Channel Estimation
-
-- The **Insert Pilots** function inserts a specific sequence of symbols known to the receiver for estimating the channel transfer function.
-- At the receiver, you will later use the **Channel Estimator** to correct for phase and amplitude errors introduced by the channel.
-
-10. **Insert Pilots:**  
-    Connect the complex values to the **Insert Pilots** function provided, and then add the **AddFrameHeader (Complex)** function immediately after.
-
-11. **Data Transmission:**  
-    Connect the output signal to the “data” node of the **niUSRP Write Tx Data (CDB)** function in the template. Ensure the input to this function is a complex signal.
-
-12. **System Settings:**  
-    Assign the following values to the corresponding controls and run the code:
-    
-    - **Carrier frequency:** 400 MHz  
-    - **IQ Rate:** 200 kHz (this sets the value of $1/T_s$)  
-    - **Gain:** 0 dB  
-    - **Active Antenna:** TX1  
-    - **Symbol rate:** 10,000 symbols/s  
-    - **Message Length:** 1000 bits  
-
-**Tasks:**
-
-- Calculate the number of samples per symbol, $L$, based on the given values.
+Calculating number of samples per symbol, $L$, based on the given values:
 
 $$
 L = \frac{\text{IQ rate}}{\text{Symbol rate}} = \frac{200,000 \text{ samples/s}}{10,000 \text{ symbols/s}} = 20.
 $$
   
-- Add the block diagram and the front panel graphs to your logbook (adjust plots where necessary) and explain your observations.
+We observe:
 
  ![image](https://github.com/user-attachments/assets/6b0e76e8-afba-4279-8dfe-568532246e6b)
 
 
 ![image](https://github.com/user-attachments/assets/47da2774-05ec-42f4-a871-50616db1e3c9)
 
+It looks fairly low in magnitude with a -40dB bandwidth of about 15kHz, and a more typical -3dB badwidth of about 8-10kHz 
 
-- From the spectrum plot, measure the “main lobe” bandwidth of the transmitted signal. Then change the pulse shaping filter control to “none” to create rectangular pulses, run the transmitter again, and compare the spectrum with that for root-raised-cosine pulses. Finally, revert the pulse shaping filter setting to “Root Raised.”
+https://ntrs.nasa.gov/api/citations/20120008631/downloads/20120008631.pdf
+>The rolloff factor is a measure of the excess bandwidth of the filter, i.e., the bandwidth
+occupied beyond the Nyquist bandwidth of 1/2T, where 1/T is symbol rate.
+sp the Nyquist bandwidth is 10,000/2 = 5000Hz
 
+This is the minimum bandwidth required to avoid intersymbol interference
+reading further from nasa it seems ideal for the bandwidth should approach 5 for efficiency but possibly at the sacrifice of clarity of symbols
+so a bandwidth of 8-10kHz is good effeciency wise, but might be unclear with a weaker signal.
 
 ![image](https://github.com/user-attachments/assets/1f54c948-81c5-493a-bfb9-df19184deb6b)
 
-When switching between **RRC filtering** and **rectangular pulses**, the differences are immediately noticeable. With RRC filtering, the waveform appears smooth, with gradual transitions between symbols, while rectangular pulses create a blocky, staircase-like signal with abrupt jumps.
+WiRRC filtering, the waveform appears smooth, with gradual transitions between symbols, 
+while rectangular pulses create a blocky signal with abrupt jumps.
 
-This also impacts the frequency domain. RRC filtering concentrates most of the signal's energy near the center frequency, rolling off quickly to minimize interference. In contrast, rectangular pulses result in a wider spread of energy, producing strong ripples and inefficient bandwidth usage.
+RRC filtering concentrates most of the signal's energy near the center frequency, rolling off quickly to minimize interference. 
+rectangular pulses result in a wider spread of energy, producing strong ripples and inefficient bandwidth usage.
 
-A smooth waveform and a well-contained spectrum indicate effective RRC filtering, whereas sharp steps and a broader, more rippled spectrum suggest the effects of unfiltered pulses. While RRC improves signal clarity and bandwidth efficiency, rectangular pulses offer a simpler but less controlled transmission.
-
-- Compare the main lobe bandwidth and the spectral roll-off for root-raised-cosine pulses versus rectangular pulses.
-
-In the frequency domain, **root-raised-cosine (RRC) pulses** and **rectangular pulses** differ in two key ways:
-
-1. **Main Lobe Bandwidth** – RRC pulses concentrate energy in a slightly narrower central lobe,  
-   while rectangular pulses spread energy more broadly, resulting in a wider main lobe.
-
-2. **Spectral Roll-Off** – RRC pulses decay more steeply in frequency, reducing side lobes and  
-   minimizing interference. Rectangular pulses, following a $\frac{\sin x}{x}$ pattern, decay more  
-   slowly, producing taller and more extended side lobes.
+A smooth waveform and a well-contained spectrum indicate effective RRC filtering, 
+whereas sharp steps and a broader, more rippled spectrum suggest the effects of unfiltered pulses
 
 In short, **RRC filtering** keeps the signal more contained within its bandwidth and suppresses side lobes,  
 whereas **rectangular pulses** lead to a broader spectrum with stronger side lobes.
@@ -155,23 +101,27 @@ whereas **rectangular pulses** lead to a broader spectrum with stronger side lob
 
 ## Exercise 2: BPSK Receiver
 
-The received BPSK signal is given by:
+In this exercise we make a reciever for the modulator we made
 
-$$
+From the Lab Instructions:
+
+>The received BPSK signal is given by:
+
+>$$
 r(t) = \pm D\, g_{\text{RX}}(t) \cos\Bigl(2\pi f_c t + \phi\Bigr),
 $$
 
-where  
-- $D$ is a constant (usually much smaller than $A$ in the transmitted signal), and  
-- $\phi$ represents the phase difference between the transmitter and receiver carrier oscillators.
+>where  
+>- $D$ is a constant (usually much smaller than $A$ in the transmitted signal), and  
+>- $\phi$ represents the phase difference between the transmitter and receiver carrier oscillators.
 
-If the receiver’s carrier oscillator is set to the same frequency as the transmitter’s, the USRP receiver performs most of the demodulation. The **Fetch Rx Data** function provides a train of output samples, each given by an expression similar to:
+>If the receiver’s carrier oscillator is set to the same frequency as the transmitter’s, the USRP receiver performs most of the demodulation. The **Fetch Rx Data** function provides a train of output samples, each given by an expression similar to:
 
-$$
+>$$
 \tilde{r}[n] = \pm \frac{D}{2}\, g_{\text{RX}}[n] e^{j\phi}.
 $$
 
-The sampling rate $1/T_s$ is set by the receiver’s IQ rate, which provides $M$ samples every $T$ seconds (with $1/T$ being the symbol rate).
+>The sampling rate $1/T_s$ is set by the receiver’s IQ rate, which provides $M$ samples every $T$ seconds (with $1/T$ being the symbol rate).
 
 ### Steps to Obtain the Transmitted Signals
 
@@ -326,7 +276,10 @@ The sequences are as follows:
 | 0.454142, 0.476731, 0.465487, 0.493868, 0.488525 | 0.4753 |
 | 0.490375, 0.475501, 0.50431, 0.473515, 0.498864  | 0.4889 |
   
-- Compare the performance of BPSK and DPSK, and explain your findings.
+We did not find much change in preformance, although very accurate at high gain, it quickly falls off.
+This could potentially be down to the narrow bandwidth of our transmitted signal. Im not clear which one we would expect to be better:
+- BPSK relies on a good channel estimator to guess its carrier wave and transfer function
+- With DPSK there will be carry over bit errors if one bit is read wrong 
 
 ---
 
@@ -386,7 +339,13 @@ An error in any one of the three samples is corrected by the majority vote. To i
 
 
 - Compare your BER results from Exercise 2 with those obtained here. Has FEC improved the BER?
+
+It has for the -30 Tx gain however no change is obvious in the other three 
 - Discuss the trade-offs involved in the error correction coding system. What are the advantages and disadvantages?
+
+More robust transmission -> no need for retransmittion
+Increased Bandwidth to maintain same symbol rate -> the bit rate must increase by a factor of 3 and so the bandwidth must also triple this decrease the power effiecency of the system 
+Conversly increased latency -> if the rate is not increased then the information will take more time to transmit
 
 ---
 
